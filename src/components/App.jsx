@@ -23,8 +23,8 @@ function App() {
 
         const getLeaderboardData = async () => {
             try {
-                const response = await axios.post('http://localhost:5000/leaderboard-full', { competitions, weights })
-                // const response = await axios.get('https://kaggle-leaderboard-scraping-flask.onrender.com/leaderboard-full', { competitions, weights })
+                // const response = await axios.post('http://localhost:5000/leaderboard-full', { competitions, weights })
+                const response = await axios.get('https://kaggle-leaderboard-scraping-flask.onrender.com/leaderboard-full', { competitions, weights })
 
                 console.log(response)
                 setLeaderboardData(response.data.infos)
