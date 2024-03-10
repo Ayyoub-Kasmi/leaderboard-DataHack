@@ -1,4 +1,4 @@
-const numberOfChallenges = 5;
+const numberOfChallenges = 6;
 const challenges = [
     "Challenge 01",
     "Challenge 02",
@@ -10,7 +10,7 @@ const challenges = [
     "Challenge 08",
 ]
 
-const LeaderboardRow = ({ rank, team, scores }) => {
+const LeaderboardRow = ({ rank, team, scores, weights }) => {
     return (
         <tr>
             <td>
@@ -27,6 +27,10 @@ const LeaderboardRow = ({ rank, team, scores }) => {
                     <td key={index}>{score}</td>
                 ))
             }
+            <td>
+                {/* Total score with weights considered */}
+                {scores.reduce((acc, score, index) => acc + score * weights[index], 0)}
+            </td>
 
         </tr>
     );
@@ -45,6 +49,7 @@ const DisplayLeaderboard = ({ data, weights }) => { // Changed component name he
                         {
                             challenges.slice(0, numberOfChallenges).map(challenge => <th>{challenge}</th>)
                         }
+                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,7 +65,7 @@ const DisplayLeaderboard = ({ data, weights }) => { // Changed component name he
                         })
                         .map((entry, index) => {
                             entry.rank = index + 1;
-                        return <LeaderboardRow key={entry.team} {...entry} />
+                        return <LeaderboardRow key={entry.team} {...entry} weights={weights} />
                     })}
                 </tbody>
             </table>
